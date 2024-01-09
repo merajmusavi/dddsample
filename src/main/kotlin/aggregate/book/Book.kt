@@ -76,7 +76,7 @@ class Book private constructor() {
         if (!isReserved) {
             throw Exception("Book has not reserved by default")
 
-        } else if (reserverUserId != reservedUserId) {
+        } else if (reserverUserId != reservedUserId?.value) {
             throw Exception("you are not this book`s reserver")
 
         } else {
