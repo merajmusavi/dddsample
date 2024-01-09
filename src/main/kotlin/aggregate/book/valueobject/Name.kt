@@ -1,4 +1,4 @@
-package aggregate.book.entity.valueobject
+package aggregate.book.valueobject
 
 class Name private constructor(val value: String) {
     init {
@@ -19,7 +19,7 @@ class Name private constructor(val value: String) {
             }
         }
 
-        fun fill(name:String) : Name{
+        fun fill(name:String) : Name {
             return Name(name)
         }
         class InvalidNameException(message:String): Exception(message)

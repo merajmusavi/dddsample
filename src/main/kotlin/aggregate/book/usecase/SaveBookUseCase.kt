@@ -1,8 +1,7 @@
-package aggregate.book.entity.usecase
+package aggregate.book.usecase
 
-import aggregate.book.entity.Book
+import aggregate.book.Book
 import common.CommonUseCase
-import repository.BookRepository
 
 class SaveBookUseCase() : CommonUseCase<SaveBookUseCase.saveBookCommand> {
     override suspend fun execute(command: saveBookCommand): Result<Book> {

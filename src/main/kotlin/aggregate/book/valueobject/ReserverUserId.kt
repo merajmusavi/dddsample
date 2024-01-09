@@ -1,4 +1,4 @@
-package aggregate.book.entity.valueobject
+package aggregate.book.valueobject
 
 data class ReserverUserId private constructor(val value: Long) {
 
@@ -22,7 +22,7 @@ data class ReserverUserId private constructor(val value: Long) {
             }
         }
 
-        fun fill(userId: Long):ReserverUserId{
+        fun fill(userId: Long): ReserverUserId {
             return ReserverUserId(userId)
         }
 

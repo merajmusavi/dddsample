@@ -1,7 +1,6 @@
 package common
 
-import aggregate.book.entity.Book
-import aggregate.book.entity.valueobject.Author
+import aggregate.book.Book
 
 interface CommonUseCase<COMMAND> {
    suspend fun execute(command:COMMAND): Result<Book>

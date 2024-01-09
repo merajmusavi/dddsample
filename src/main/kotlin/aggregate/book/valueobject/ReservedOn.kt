@@ -1,4 +1,4 @@
-package aggregate.book.entity.valueobject
+package aggregate.book.valueobject
 
 import java.time.Instant
 
@@ -19,7 +19,7 @@ data class ReservedOn private constructor(val value:Instant){
                 Result.failure(InvalidDateException("invalid date exception"))
             }
         }
-        fun fill(date:Instant):ReservedOn{
+        fun fill(date:Instant): ReservedOn {
             return ReservedOn(date)
         }
         class InvalidDateException(message:String) : IllegalArgumentException(message)

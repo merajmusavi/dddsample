@@ -1,6 +1,4 @@
-package aggregate.book.entity.valueobject
-
-import javax.naming.InvalidNameException
+package aggregate.book.valueobject
 
 data class Author private constructor(val value: String) {
 
@@ -22,7 +20,7 @@ data class Author private constructor(val value: String) {
                 Result.failure(InvalidNameOfAuthorException("invalid name of author exception"))
             }
         }
-        fun fill(author:String): Author{
+        fun fill(author:String): Author {
             return Author(author)
         }
         class InvalidNameOfAuthorException(message:String) : Exception(message)

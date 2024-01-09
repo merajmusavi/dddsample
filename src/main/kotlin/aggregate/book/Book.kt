@@ -1,9 +1,9 @@
-package aggregate.book.entity
+package aggregate.book
 
-import aggregate.book.entity.valueobject.Author
-import aggregate.book.entity.valueobject.Name
-import aggregate.book.entity.valueobject.ReservedOn
-import aggregate.book.entity.valueobject.ReserverUserId
+import aggregate.book.valueobject.Author
+import aggregate.book.valueobject.Name
+import aggregate.book.valueobject.ReservedOn
+import aggregate.book.valueobject.ReserverUserId
 import java.lang.Exception
 import java.lang.IllegalArgumentException
 
@@ -71,7 +71,7 @@ class Book private constructor() {
 
     }
 
-    internal fun cancelReservation(reserverUserId: ReserverUserId): Result<Book> {
+    internal fun cancelReservation(reserverUserId: Long): Result<Book> {
 
         if (!isReserved) {
             throw Exception("Book has not reserved by default")
