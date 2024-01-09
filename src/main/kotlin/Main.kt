@@ -3,11 +3,11 @@ import aggregate.book.entity.valueobject.Author
 import aggregate.book.entity.valueobject.Name
 import repository.BookRepository
 
-fun main(args: Array<String>) {
+suspend fun main(args: Array<String>) {
 
 val addBookUseCase = SaveBookUseCase()
 
-    val result = addBookUseCase.execute("dsfdsfsfds","fdsfds")
+    val result = addBookUseCase.execute(SaveBookUseCase.saveBookCommand("sdfdsf","sdfds"))
 
     if (result.isSuccess){
         println(result.getOrNull()?.bookName.toString())
