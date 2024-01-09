@@ -24,4 +24,8 @@ data class ReservedOn private constructor(val value:Instant){
         }
         class InvalidDateException(message:String) : IllegalArgumentException(message)
     }
+
+    override fun toString(): String {
+        return value.toString()
+    }
 }

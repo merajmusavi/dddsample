@@ -2,11 +2,12 @@ package aggregate.book.entity
 
 import aggregate.book.entity.valueobject.Author
 import aggregate.book.entity.valueobject.Name
+import aggregate.book.entity.valueobject.ReservedOn
 import aggregate.book.entity.valueobject.ReserverUserId
 import java.lang.Exception
 import java.lang.IllegalArgumentException
-import java.time.Instant
 
+@Suppress("UNREACHABLE_CODE")
 class Book private constructor() {
     lateinit var bookName: Name
         private set
@@ -14,7 +15,7 @@ class Book private constructor() {
         private set
     var reservedUserId: ReserverUserId? = null
         private set
-    var reservedOn: Instant? = null
+        var reservedOn: ReservedOn? = null
         private set
 
 
@@ -22,7 +23,7 @@ class Book private constructor() {
         get() = reservedOn != null
 
 
-    constructor(bookName: Name, author: Author, reservedUserId: ReserverUserId, reservedOn: Instant) : this() {
+    constructor(bookName: Name, author: Author, reservedUserId: ReserverUserId?, reservedOn: ReservedOn?) : this() {
         this.bookName = bookName
         this.bookName = bookName
         this.bookName = bookName
@@ -36,8 +37,9 @@ class Book private constructor() {
         internal fun makeNew(name: String, author: String): Result<Book> {
             val resultName = Name.makeNew(name)
             val resultAuthor = Author.makeNew(author)
+
             return if (resultName.isSuccess && resultAuthor.isSuccess) {
-                Result.success(Book(resultName.getOrNull()!!, resultAuthor.getOrNull()!!, null!!, null!!))
+                Result.success(Book(resultName.getOrNull()!!, resultAuthor.getOrNull()!!, null, null))
             } else if (resultAuthor.isFailure) {
                 Result.failure(Author.Companion.InvalidNameOfAuthorException("invalid author name"))
             } else if (resultName.isFailure) {
@@ -47,14 +49,15 @@ class Book private constructor() {
             }
         }
 
-        fun fill(name: String, author: String, reservedUserId: ReserverUserId, reservedOn: Instant): Book {
+
+        fun fill(name: String, author: String, reservedUserId: ReserverUserId, reservedOn: ReservedOn): Book {
             return Book(Name.fill(name), Author.fill(author), reservedUserId, reservedOn)
         }
 
     }
 
 
-    internal fun reserveBook(reserverUserId: ReserverUserId, reserveDateTime: Instant): Result<Book> {
+    internal fun reserveBook(reserverUserId: ReserverUserId, reserveDateTime: ReservedOn): Result<Book> {
 
         if (isReserved) {
             throw Exception("Book has been Already Reserved")
@@ -83,5 +86,8 @@ class Book private constructor() {
         }
     }
 
+    override fun toString(): String {
+        return super.toString()
+    }
 
 }

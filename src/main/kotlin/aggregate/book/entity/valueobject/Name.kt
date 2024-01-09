@@ -25,5 +25,7 @@ class Name private constructor(val value: String) {
         class InvalidNameException(message:String): Exception(message)
     }
 
-
+    override fun toString(): String {
+        return value
+    }
 }

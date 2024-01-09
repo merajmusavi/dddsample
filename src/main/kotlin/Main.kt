@@ -1,7 +1,18 @@
-fun main(args: Array<String>) {
-    println("Hello World!")
+import aggregate.book.entity.usecase.SaveBookUseCase
+import aggregate.book.entity.valueobject.Author
+import aggregate.book.entity.valueobject.Name
+import repository.BookRepository
 
-    // Try adding program arguments via Run/Debug configuration.
-    // Learn more about running applications: https://www.jetbrains.com/help/idea/running-applications.html.
-    println("Program arguments: ${args.joinToString()}")
+fun main(args: Array<String>) {
+
+val addBookUseCase = SaveBookUseCase()
+
+    val result = addBookUseCase.execute("dsfdsfsfds","fdsfds")
+
+    if (result.isSuccess){
+        println(result.getOrNull()?.bookName.toString())
+    }else{
+        println("not true information")
+    }
+
 }

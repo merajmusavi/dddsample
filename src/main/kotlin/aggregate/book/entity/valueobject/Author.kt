@@ -28,4 +28,8 @@ data class Author private constructor(val value: String) {
         class InvalidNameOfAuthorException(message:String) : Exception(message)
 
     }
+
+    override fun toString(): String {
+        return value
+    }
 }

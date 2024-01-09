@@ -31,4 +31,8 @@ data class ReserverUserId private constructor(val value: Long) {
         class InvalidUserIdException(message:String) : Exception(message)
     }
 
+    override fun toString(): String {
+        return value.toString()
+    }
+
 }
