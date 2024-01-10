@@ -49,6 +49,9 @@ class School private constructor() {
 
 
         }
+        fun fill(name:String,address:String,registrationNumber:Long):School{
+            return School(Name.fill(name), Address.fill(address), RegistrationNumber.fill(registrationNumber))
+        }
         class InvalidNameException(message:String) : Exception(message)
         class InvalidAddressException(message:String) : Exception(message)
         class InvalidRegistrationException(message:String) : Exception(message)
