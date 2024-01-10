@@ -2,13 +2,15 @@ package aggregate.book.usecase
 
 import aggregate.book.Book
 import common.CommonUseCase
+import repository.BookRepository
 
-class SaveBookUseCase() : CommonUseCase<SaveBookUseCase.saveBookCommand> {
+class SaveBookUseCase(val repository:BookRepository) : CommonUseCase<SaveBookUseCase.saveBookCommand,Book> {
     override suspend fun execute(command: saveBookCommand): Result<Book> {
         val result = Book.makeNew(command.name, command.author)
 
         return if (result.isSuccess) {
             Result.success(result.getOrNull()!!)
+            repository.saveBook(result.getOrNull())
         } else {
             Result.failure(result.exceptionOrNull()!!)
         }

@@ -8,7 +8,7 @@ import repository.BookRepository
 import java.lang.IllegalArgumentException
 import java.time.Instant
 
-class ReservationUseCase(private val bookRepository: BookRepository) : CommonUseCase<ReservationUseCase.ReservationCommand> {
+class ReservationUseCase(private val repository: BookRepository) : CommonUseCase<ReservationUseCase.ReservationCommand,Book> {
 
 
     override suspend fun execute(command: ReservationCommand): Result<Book> {
@@ -19,21 +19,21 @@ class ReservationUseCase(private val bookRepository: BookRepository) : CommonUse
     }
 
     private suspend fun reserveBook(command: ReservationCommand.ReserveBook):Result<Book> {
-        val book = bookRepository.findBookById(command.bookId)
+        val book = repository.findBookById(command.bookId)
         return if (book!=null){
             val reservedOn = ReservedOn.makeNew(Instant.now()).getOrNull()!!
             val reserverUserId = ReserverUserId.makeNew(command.reservedUserId).getOrNull()!!
             val result = book.reserveBook(reserverUserId,reservedOn)
-            bookRepository.saveBook(result.getOrNull())
+            repository.saveBook(result.getOrNull())
         }else{
             Result.failure(IllegalArgumentException(""))
         }
     }
     private suspend fun cancelReservation(command: ReservationCommand.CancelReservation):Result<Book> {
-        val book = bookRepository.findBookById(command.bookId)
+        val book = repository.findBookById(command.bookId)
         return if (book != null){
             val result = book.cancelReservation(command.reserverUserID)
-            bookRepository.saveBook(result.getOrNull())
+            repository.saveBook(result.getOrNull())
         }else{
             Result.failure(IllegalArgumentException("error exception"))
         }
