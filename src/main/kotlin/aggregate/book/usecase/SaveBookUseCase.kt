@@ -1,10 +1,11 @@
 package aggregate.book.usecase
 
 import aggregate.book.Book
+import aggregate.book.model.command.SaveBookCommand
 import common.CommonUseCase
 import repository.BookRepository
 
-class SaveBookUseCase(private val repository:BookRepository) : CommonUseCase<SaveBookUseCase.SaveBookCommand,Book> {
+class SaveBookUseCase(private val repository:BookRepository) : CommonUseCase<SaveBookCommand,Book> {
     override suspend fun execute(command: SaveBookCommand): Result<Book> {
         val result = Book.makeNew(command.name, command.author)
 
@@ -21,5 +22,4 @@ class SaveBookUseCase(private val repository:BookRepository) : CommonUseCase<Sav
         return super.toString()
     }
 
-    data class SaveBookCommand(var name: String, val author: String)
 }

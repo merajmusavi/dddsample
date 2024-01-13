@@ -34,4 +34,15 @@ class Student private constructor(){
         }
         class IllegalStudentException(message:String) :Exception(message)
     }
+
+fun updateStudent(name:String,age:Int):Result<Student>{
+
+    val nameResult = Name.makeNew(name)
+    val ageResult = Age.makeNew(age)
+    this.studentName = nameResult.getOrThrow()
+    this.studentAge = ageResult.getOrThrow()
+
+    return Result.success(this)
+
+    }
 }

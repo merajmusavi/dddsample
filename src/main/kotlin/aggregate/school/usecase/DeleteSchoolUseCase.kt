@@ -1,6 +1,5 @@
 package aggregate.school.usecase
 
-import aggregate.school.School
 import aggregate.school.model.command.DeleteSchool
 import common.CommonUseCase
 import repository.SchoolRepository

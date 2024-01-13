@@ -1,10 +1,8 @@
 package aggregate.school.usecase
 
-import aggregate.school.School
 import aggregate.school.model.command.UpdateSchool
 import common.CommonUseCase
 import repository.SchoolRepository
-import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
 class UpdateSchoolUseCase(private val repo: SchoolRepository) :

@@ -10,6 +10,7 @@ import java.time.Instant
 
 @Suppress("UNREACHABLE_CODE", "NAME_SHADOWING")
 class Book private constructor() {
+
     lateinit var bookName: Name
         private set
     lateinit var author: Author

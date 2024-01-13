@@ -1,19 +1,20 @@
 package aggregate.student.usecase
 
 import aggregate.student.Student
+import aggregate.student.model.command.SaveStuDentCommand
 import common.CommonUseCase
 import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
-class SaveStudentUseCase(private val repository : StudentRepository) :CommonUseCase<SaveStudentUseCase.SaveStuDentCommand,Student> {
+class SaveStudentUseCase(private val repository : StudentRepository) :CommonUseCase<SaveStuDentCommand,Unit> {
 
 
-    override suspend fun execute(command: SaveStuDentCommand): Result<Student> {
-        val result = Student.makeNew(command.name,command.age,command.idCard)
-       return if (result.isSuccess){
-           Result.success(result.getOrNull()!!)
-           repository.saveStudent(result.getOrNull()!!)
-
+    override suspend fun execute(command: SaveStuDentCommand): Result<Unit> {
+        val existingStudent = repository.get(command.idCard)
+       return if (existingStudent == null){
+           val student = Student.makeNew(command.name,command.age,command.idCard)
+           repository.saveStudent(student.getOrThrow())
+           Result.success(Unit)
         }else{
             Result.failure(IllegalArgumentException("EXCEPTION"))
        }
@@ -23,7 +24,6 @@ class SaveStudentUseCase(private val repository : StudentRepository) :CommonUseC
 
 
 
-    data class SaveStuDentCommand(val name:String, val age:Int, val idCard:Long )
 
 
 }
