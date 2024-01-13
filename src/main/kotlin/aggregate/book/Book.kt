@@ -17,7 +17,7 @@ class Book private constructor() {
         private set
     var reservedUserId: ReserverUserId? = null
         private set
-        var reservedOn: ReservedOn? = null
+    var reservedOn: ReservedOn? = null
         private set
 
 
@@ -92,18 +92,18 @@ class Book private constructor() {
         return super.toString()
     }
 
-    fun update(bookName: String?, author: String?, reservedUserId: Long?, reservedOn: Instant?):Result<Book>{
-        val resultName = Name.makeNew(bookName!!).getOrThrow()
-        val resultAuthorName = Author.makeNew(author!!).getOrThrow()
-        val resultReservedUserID = ReserverUserId.makeNew(reservedUserId!!).getOrThrow()
-        val resultReservedOn = ReservedOn.makeNew(reservedOn!!).getOrThrow()
-
-        this.bookName = resultName
-        this.author = resultAuthorName
-        this.reservedOn = resultReservedOn
-        this.reservedUserId = resultReservedUserID
+    fun changeAuthor(author: String): Result<Book> {
+        val resultAuthor = Author.makeNew(author).getOrThrow()
+        this.author = resultAuthor
 
         return Result.success(this)
+    }
+
+    fun changeName(name: String): Result<Book> {
+        val resultName = Name.makeNew(name).getOrThrow()
+        this.bookName = resultName
+        return Result.success(this)
+
     }
 
 }

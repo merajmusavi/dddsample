@@ -43,27 +43,36 @@ class School private constructor() {
                 Result.failure(InvalidAddressException("INVALID ADDRESS EXCEPTION"))
             } else if (resultRegistrationNumber.isFailure) {
                 Result.failure(InvalidRegistrationException("INVALID REGISTRATION EXCEPTION"))
-            }else{
+            } else {
                 Result.failure(IllegalArgumentException("unrecognizable error"))
             }
 
 
         }
-        fun fill(name:String,address:String,registrationNumber:Long):School{
+
+        fun fill(name: String, address: String, registrationNumber: Long): School {
             return School(Name.fill(name), Address.fill(address), RegistrationNumber.fill(registrationNumber))
         }
-        class InvalidNameException(message:String) : Exception(message)
-        class InvalidAddressException(message:String) : Exception(message)
-        class InvalidRegistrationException(message:String) : Exception(message)
+
+        class InvalidNameException(message: String) : Exception(message)
+        class InvalidAddressException(message: String) : Exception(message)
+        class InvalidRegistrationException(message: String) : Exception(message)
     }
 
 
-    fun update(name: String,address: String):Result<School> {
-
+    fun changeName(name: String): Result<School> {
         val resultName = Name.makeNew(name).getOrThrow()
-        val resultAddress = Address.makeNew(address).getOrThrow()
-        this.schoolName=resultName
-        this.schoolAddress=resultAddress
+
+        this.schoolName = resultName
+
+        return Result.success(this)
+    }
+
+    fun changeAddress(name: String): Result<School> {
+        val resultAddress = Address.makeNew(name).getOrThrow()
+
+        this.schoolAddress = resultAddress
+
         return Result.success(this)
     }
 

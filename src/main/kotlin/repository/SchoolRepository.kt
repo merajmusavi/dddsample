@@ -3,14 +3,14 @@ package repository
 import aggregate.school.School
 
 interface SchoolRepository {
-    fun addSchool(school: School)
+    fun save(school: School)
 
-    fun findSchoolByRegistration(registrationId: Long):School
-    fun schoolExists(registrationId: Long):Boolean
+    fun findByRegistration(registrationId: Long):School
+    fun exists(registrationId: Long):Boolean
     fun get(registrationId: Long):School?
-    fun updateSchool(school: School)
+    fun update(school: School)
 
-    fun deleteSchoolById(registrationId: Long)
+    fun delete(registrationId: Long)
 
 
 }
