@@ -1,13 +1,13 @@
 package aggregate.school.usecase
 
 import aggregate.school.School
-import aggregate.school.model.query.FindSchool
+import aggregate.school.model.qry.FindSchool
 import aggregate.school.valueobject.RegistrationNumber
 import common.CommonUseCase
 import repository.SchoolRepository
 import java.lang.IllegalArgumentException
 
-class FindSchoolUseCase(val repo: SchoolRepository) : CommonUseCase<FindSchool, School> {
+class FindSchoolUseCase(private val repo: SchoolRepository) : CommonUseCase<FindSchool, School> {
     override suspend fun execute(command: FindSchool): Result<School> {
         return try {
             if (RegistrationNumber.isValidRegistrationNumber(command.registrationId)) {

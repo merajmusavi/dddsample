@@ -1,3 +1,3 @@
-package aggregate.school.model.query
+package aggregate.school.model.qry
 
 data class FindSchool(val registrationId: Long)
