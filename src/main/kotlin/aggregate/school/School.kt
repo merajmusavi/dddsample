@@ -58,4 +58,15 @@ class School private constructor() {
     }
 
 
+    fun update(name: String,address: String):Result<School> {
+
+        val resultName = Name.makeNew(name).getOrThrow()
+        val resultAddress = Address.makeNew(address).getOrThrow()
+        this.schoolName=resultName
+        this.schoolAddress=resultAddress
+        return Result.success(this)
+    }
+
+
+
 }

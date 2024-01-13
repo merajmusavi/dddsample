@@ -1,31 +1,30 @@
 package aggregate.school.usecase
 
 import aggregate.school.School
+import aggregate.school.model.command.DeleteSchool
 import common.CommonUseCase
 import repository.SchoolRepository
 import java.lang.IllegalArgumentException
 
-class DeleteSchoolUseCase(val repo: SchoolRepository) : CommonUseCase<DeleteSchoolUseCase.DeleteSchool,School> {
+class DeleteSchoolUseCase(private val repo: SchoolRepository) : CommonUseCase<DeleteSchool, Unit> {
 
 
-    override suspend fun execute(command: DeleteSchool): Result<School> {
-        val existingSchool = repo.findSchoolByRegistration(command.registrationId)
+    override suspend fun execute(command: DeleteSchool): Result<Unit> {
+        val existingSchool = repo.schoolExists(command.registrationId)
 
-     return   if (existingSchool){
+        return if (existingSchool) {
             repo.deleteSchoolById(command.registrationId)
-            val deletedSchool = School.fill(command.name,command.address,command.registrationId)
 
-            Result.success(deletedSchool)
+            Result.success(Unit)
 
 
-        }else{
-           Result.failure(IllegalArgumentException("NOT FOUND"))
+        } else {
+            Result.failure(IllegalArgumentException("NOT FOUND"))
         }
 
     }
 
 
-    data class DeleteSchool(val name:String,val address:String,val registrationId: Long)
 
 
 }

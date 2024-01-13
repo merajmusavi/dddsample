@@ -5,7 +5,7 @@ import common.CommonUseCase
 import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
-class DeleteStudentUseCase(val repo: StudentRepository) :
+class DeleteStudentUseCase(private val repo: StudentRepository) :
     CommonUseCase<DeleteStudentUseCase.DeleteStudentCommand, Student> {
 
 

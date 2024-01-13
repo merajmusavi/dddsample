@@ -5,7 +5,7 @@ import common.CommonUseCase
 import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
-class SaveStudentUseCase(val repository : StudentRepository) :CommonUseCase<SaveStudentUseCase.SaveStuDentCommand,Student> {
+class SaveStudentUseCase(private val repository : StudentRepository) :CommonUseCase<SaveStudentUseCase.SaveStuDentCommand,Student> {
 
 
     override suspend fun execute(command: SaveStuDentCommand): Result<Student> {

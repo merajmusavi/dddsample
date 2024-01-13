@@ -1,34 +1,30 @@
 package aggregate.school.usecase
 
 import aggregate.school.School
+import aggregate.school.model.command.UpdateSchool
 import common.CommonUseCase
 import repository.SchoolRepository
 import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
-class UpdateSchoolUseCase(val repo: SchoolRepository): CommonUseCase<UpdateSchoolUseCase.UpdateSchoolUseCase,School> {
-    override suspend fun execute(command: UpdateSchoolUseCase): Result<School> {
-        val existingStu = repo.findSchoolByRegistration(command.registrationId)
-        return if (existingStu){
+class UpdateSchoolUseCase(private val repo: SchoolRepository) :
+    CommonUseCase<UpdateSchool, Unit> {
+    override suspend fun execute(command: UpdateSchool): Result<Unit> {
+        val school = repo.get(command.registrationId)
+        return if (school != null) {
+
+            val resultSchool = school.update(
+                command.name, command.address
+            )
+            resultSchool.isFailure
 
 
-            val school = School.fill(command.name,command.address,command.registrationId)
-
-            val updatedSchool = School(school.schoolName,school.schoolAddress,school.schoolRegistrationNumber)
-
-            repo.updateSchool(updatedSchool)
-            Result.success(updatedSchool)
-        }else{
+            repo.updateSchool(resultSchool.getOrThrow())
+            Result.success(Unit)
+        } else {
             Result.failure(IllegalArgumentException("un recognizable error"))
         }
-
-     }
-
-
-
-
-
-    data class UpdateSchoolUseCase(val name:String,val address:String,val registrationId:Long)
+    }
 
 
 }

@@ -6,8 +6,9 @@ import aggregate.book.valueobject.ReservedOn
 import aggregate.book.valueobject.ReserverUserId
 import java.lang.Exception
 import java.lang.IllegalArgumentException
+import java.time.Instant
 
-@Suppress("UNREACHABLE_CODE")
+@Suppress("UNREACHABLE_CODE", "NAME_SHADOWING")
 class Book private constructor() {
     lateinit var bookName: Name
         private set
@@ -88,6 +89,20 @@ class Book private constructor() {
 
     override fun toString(): String {
         return super.toString()
+    }
+
+    fun update(bookName: String?, author: String?, reservedUserId: Long?, reservedOn: Instant?):Result<Book>{
+        val resultName = Name.makeNew(bookName!!).getOrThrow()
+        val resultAuthorName = Author.makeNew(author!!).getOrThrow()
+        val resultReservedUserID = ReserverUserId.makeNew(reservedUserId!!).getOrThrow()
+        val resultReservedOn = ReservedOn.makeNew(reservedOn!!).getOrThrow()
+
+        this.bookName = resultName
+        this.author = resultAuthorName
+        this.reservedOn = resultReservedOn
+        this.reservedUserId = resultReservedUserID
+
+        return Result.success(this)
     }
 
 }

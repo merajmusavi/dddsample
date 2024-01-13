@@ -5,7 +5,7 @@ import common.CommonUseCase
 import repository.StudentRepository
 import java.lang.IllegalArgumentException
 
-class UpdateStudentUseCase(val repo: StudentRepository) :
+class UpdateStudentUseCase(private val repo: StudentRepository) :
     CommonUseCase<UpdateStudentUseCase.SaveStudentCommand, Student> {
 
 
